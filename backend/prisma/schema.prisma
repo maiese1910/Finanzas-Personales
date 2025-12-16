@@ -1,0 +1,61 @@
+// Esquema de base de datos para Personal Finance Dashboard
+// Usa DECIMAL para evitar errores de punto flotante con el dinero
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  
+  // Relaciones
+  categories   Category[]
+  transactions Transaction[]
+  
+  @@map("users")
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String   // "income" o "expense"
+  color     String?  // Color hex para visualización
+  icon      String?  // Nombre del ícono
+  userId    Int
+  createdAt DateTime @default(now())
+  
+  // Relaciones
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  
+  @@map("categories")
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  amount      Decimal  @db.Decimal(10, 2) // Evita errores de punto flotante
+  description String
+  date        DateTime
+  type        String   // "income" o "expense"
+  categoryId  Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("transactions")
+  @@index([userId, date])
+  @@index([categoryId])
+}
