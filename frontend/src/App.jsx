@@ -77,20 +77,11 @@ function App() {
           </div>
           <h1 className="header-brand">Finanzly</h1>
         </div>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <div className="header-actions">
           <select
             value={['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency || '$') ? (user.currency || '$') : 'CUSTOM'}
             onChange={handleCurrencyChange}
-            className="btn btn-outline"
-            style={{
-              background: 'transparent',
-              color: 'var(--text-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '8px',
-              padding: '0.4rem 0.5rem',
-              cursor: 'pointer',
-              fontSize: '0.9rem'
-            }}
+            className="header-select"
           >
             <option value="$">$ (USD)</option>
             <option value="€">€ (EUR)</option>
@@ -114,7 +105,7 @@ function App() {
           <button
             onClick={toggleTheme}
             className="btn btn-outline"
-            style={{ padding: '0.4rem 0.8rem', display: 'flex', alignItems: 'center' }}
+            style={{ padding: '0.4rem 0.8rem', height: '38px' }}
             title={theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
           >
             {theme === 'dark' ? (
@@ -126,9 +117,9 @@ function App() {
           <button
             onClick={handleLogout}
             className="btn btn-outline"
-            style={{ fontSize: '0.9rem', padding: '0.5rem 1rem' }}
+            style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', height: '38px' }}
           >
-            Cerrar Sesión
+            Salir
           </button>
         </div>
       </header>
