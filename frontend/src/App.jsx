@@ -142,35 +142,41 @@ function App() {
             Salir
           </button>
         </div>
+      </header>
 
-        {/* Navegación Integrada en el Header */}
-        <nav className="header-nav">
+      {/* Navegación Original Restaurada */}
+      <div className="nav-container">
+        <nav className="nav">
           <button
             className={`nav-link ${view === 'dashboard' ? 'active' : ''}`}
             onClick={() => setView('dashboard')}
           >
-            Panel
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            Panel Principal
           </button>
           <button
             className={`nav-link ${view === 'transactions' ? 'active' : ''}`}
             onClick={() => setView('transactions')}
           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>
             Movimientos
           </button>
           <button
             className={`nav-link ${view === 'categories' ? 'active' : ''}`}
             onClick={() => setView('categories')}
           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>
             Categorías
           </button>
           <button
             className={`nav-link ${view === 'budgets' ? 'active' : ''}`}
             onClick={() => setView('budgets')}
           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
             Presupuestos
           </button>
         </nav>
-      </header>
+      </div>
 
       {/* Content */}
       <div className="animate-in mt-3">
