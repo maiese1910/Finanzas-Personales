@@ -25,8 +25,9 @@ function FinancialAdvisor({ user }) {
         <div className="card mb-3 ai-advisor-card" style={{
             position: 'relative',
             overflow: 'hidden',
-            background: 'linear-gradient(145deg, #1e293b 0%, #0f172a 100%)',
-            border: '1px solid rgba(16, 185, 129, 0.2)'
+            background: 'var(--bg-card)',
+            border: '1px solid var(--color-success)',
+            opacity: 1
         }}>
             {/* Decoración sutil de fondo */}
             <div style={{
@@ -55,10 +56,10 @@ function FinancialAdvisor({ user }) {
                         🤖
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#f8fafc' }}>
+                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--text-primary)' }}>
                             Consultoría Estratégica
                         </h3>
-                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.85rem', color: '#94a3b8' }}>
+                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                             Análisis experto de patrimonio mediante IA.
                         </p>
                     </div>
@@ -83,7 +84,7 @@ function FinancialAdvisor({ user }) {
 
             {error && (
                 <div className="mt-3" style={{
-                    color: '#f43f5e',
+                    color: 'var(--color-danger)',
                     fontSize: '0.875rem',
                     background: 'rgba(244, 63, 94, 0.05)',
                     padding: '1rem',
@@ -104,15 +105,15 @@ function FinancialAdvisor({ user }) {
                 <div className="mt-4 ai-response-container animate-fade-in" style={{
                     position: 'relative',
                     zIndex: 1,
-                    background: 'rgba(15, 23, 42, 0.5)',
+                    background: 'var(--bg-primary)',
                     borderRadius: '16px',
-                    border: '1px solid rgba(148, 163, 184, 0.1)',
+                    border: '1px solid var(--border-color)',
                     padding: '1.5rem'
                 }}>
                     <div className="ai-markdown-content" style={{
                         fontSize: '1rem',
                         lineHeight: '1.8',
-                        color: '#cbd5e1'
+                        color: 'var(--text-primary)'
                     }}>
                         <ReactMarkdown>{advice}</ReactMarkdown>
                     </div>
@@ -129,7 +130,7 @@ function FinancialAdvisor({ user }) {
                     100% { transform: scale(1); opacity: 0.8; }
                 }
                 .ai-markdown-content h3 {
-                    color: #10b981;
+                    color: var(--color-success);
                     margin-top: 1.5rem;
                     margin-bottom: 0.75rem;
                     font-size: 1.25rem;
@@ -138,16 +139,18 @@ function FinancialAdvisor({ user }) {
                 }
                 .ai-markdown-content p {
                     margin-bottom: 1rem;
+                    color: var(--text-secondary);
                 }
                 .ai-markdown-content ul {
                     padding-left: 1.5rem;
                     margin-bottom: 1.25rem;
+                    color: var(--text-secondary);
                 }
                 .ai-markdown-content li {
                     margin-bottom: 0.5rem;
                 }
                 .ai-markdown-content strong {
-                    color: #f8fafc;
+                    color: var(--text-primary);
                     font-weight: 600;
                 }
                 .animate-fade-in {

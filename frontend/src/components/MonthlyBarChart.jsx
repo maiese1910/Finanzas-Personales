@@ -20,9 +20,16 @@ ChartJS.register(
     Legend
 );
 
-function MonthlyBarChart({ user }) {
+function MonthlyBarChart({ user, theme }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    // Colores basados en el tema
+    const isDark = theme === 'dark';
+    const textColor = isDark ? '#94a3b8' : '#475569';
+    const gridColor = isDark ? '#334155' : '#e2e8f0';
+    const tooltipBg = isDark ? '#1e293b' : '#ffffff';
+    const tooltipText = isDark ? '#f8fafc' : '#0f172a';
 
     useEffect(() => {
         fetchStats();
@@ -72,28 +79,28 @@ function MonthlyBarChart({ user }) {
                             legend: {
                                 position: 'bottom',
                                 labels: {
-                                    color: '#94a3b8',
+                                    color: textColor,
                                     usePointStyle: true,
                                     padding: 20
                                 }
                             },
                             tooltip: {
-                                backgroundColor: '#1e293b',
-                                titleColor: '#f8fafc',
-                                bodyColor: '#f8fafc',
-                                borderColor: '#334155',
+                                backgroundColor: tooltipBg,
+                                titleColor: tooltipText,
+                                bodyColor: tooltipText,
+                                borderColor: gridColor,
                                 borderWidth: 1
                             }
                         },
                         scales: {
                             x: {
                                 grid: { display: false },
-                                ticks: { color: '#94a3b8' }
+                                ticks: { color: textColor }
                             },
                             y: {
-                                grid: { color: '#334155' },
+                                grid: { color: gridColor },
                                 ticks: {
-                                    color: '#94a3b8',
+                                    color: textColor,
                                     callback: (value) => '$' + value
                                 }
                             }

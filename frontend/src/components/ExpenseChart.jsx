@@ -5,9 +5,13 @@ import api from '../services/api';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function ExpenseChart({ user }) {
+function ExpenseChart({ user, theme }) {
     const [chartData, setChartData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    // Colores basados en el tema
+    const isDark = theme === 'dark';
+    const textColor = isDark ? '#94a3b8' : '#475569';
 
     useEffect(() => {
         fetchData();
@@ -59,9 +63,9 @@ function ExpenseChart({ user }) {
                             legend: {
                                 position: 'bottom',
                                 labels: {
-                                    color: '#94a3b8', // --text-secondary
+                                    color: textColor,
                                     font: {
-                                        family: 'Inter',
+                                        family: 'Outfit',
                                         size: 13
                                     },
                                     padding: 20,

@@ -203,7 +203,7 @@ function App() {
 
       {/* Content */}
       <div className="animate-in mt-3">
-        {view === 'dashboard' && <Dashboard user={user} />}
+        {view === 'dashboard' && <Dashboard user={user} theme={theme} />}
         {view === 'transactions' && <Transactions user={user} />}
         {view === 'categories' && <CategoryList user={user} />}
         {view === 'budgets' && <Budgets user={user} />}
@@ -212,7 +212,7 @@ function App() {
   );
 }
 
-function Dashboard({ user }) {
+function Dashboard({ user, theme }) {
   const [stats, setStats] = useState({
     income: 0,
     expenses: 0,
@@ -269,7 +269,7 @@ function Dashboard({ user }) {
         <p style={{ margin: 0 }}>Este es el análisis de tus finanzas para el período actual.</p>
       </div>
 
-      <FinancialAdvisor user={user} />
+      <FinancialAdvisor user={user} theme={theme} />
 
       <div className="grid grid-3 mb-3">
         <div className="card" style={{ borderTop: '4px solid var(--color-success)' }}>
@@ -293,12 +293,13 @@ function Dashboard({ user }) {
       </div>
 
       <div className="grid grid-2">
-        <MonthlyBarChart user={user} />
-        <ExpenseChart user={user} />
+        <MonthlyBarChart user={user} theme={theme} />
+        <ExpenseChart user={user} theme={theme} />
       </div>
 
-      <div className="mt-3">
-        <YearlyComparisonChart user={user} />
+      <div className="grid grid-2 mt-3">
+        <AdvancedInsights user={user} theme={theme} />
+        <YearlyComparisonChart user={user} theme={theme} />
       </div>
     </div>
   );

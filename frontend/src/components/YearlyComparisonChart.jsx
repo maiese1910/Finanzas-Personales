@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import api from '../services/api';
 
-function YearlyComparisonChart({ user }) {
+function YearlyComparisonChart({ user, theme }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    // Colores basados en el tema
+    const isDark = theme === 'dark';
+    const textColor = isDark ? '#94a3b8' : '#475569';
+    const gridColor = isDark ? '#334155' : '#e2e8f0';
 
     useEffect(() => {
         fetchComparison();
@@ -58,17 +63,17 @@ function YearlyComparisonChart({ user }) {
                         plugins: {
                             legend: {
                                 position: 'top',
-                                labels: { color: '#94a3b8', usePointStyle: true }
+                                labels: { color: textColor, usePointStyle: true }
                             }
                         },
                         scales: {
                             y: {
-                                grid: { color: '#334155' },
-                                ticks: { color: '#94a3b8' }
+                                grid: { color: gridColor },
+                                ticks: { color: textColor }
                             },
                             x: {
                                 grid: { display: false },
-                                ticks: { color: '#94a3b8' }
+                                ticks: { color: textColor }
                             }
                         }
                     }}
