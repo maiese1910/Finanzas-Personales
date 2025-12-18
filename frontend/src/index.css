@@ -252,8 +252,8 @@ p {
   padding-right: 3rem;
 }
 
-.form select option {
-  background-color: var(--bg-secondary);
+select option {
+  background-color: var(--bg-card);
   color: var(--text-primary);
 }
 
