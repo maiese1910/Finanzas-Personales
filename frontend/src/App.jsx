@@ -67,23 +67,15 @@ function App() {
 
   return (
     <div className="container">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{
-            background: 'var(--gradient-primary)',
-            padding: '0.5rem',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)'
-          }}>
+      <header className="header-main">
+        <div className="header-logo-group">
+          <div className="header-icon-box">
             {/* Logo de Rayo - Finanzly */}
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
               <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
             </svg>
           </div>
-          <h1 style={{ letterSpacing: '-0.5px', margin: 0, fontSize: '1.75rem' }}>Finanzly</h1>
+          <h1 className="header-brand">Finanzly</h1>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select
