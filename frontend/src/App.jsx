@@ -83,7 +83,7 @@ function App() {
               <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
             </svg>
           </div>
-          <h1 style={{ letterSpacing: '-0.5px' }}>Finanzly</h1>
+          <h1 style={{ letterSpacing: '-0.5px', margin: 0, fontSize: '1.75rem' }}>Finanzly</h1>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select
