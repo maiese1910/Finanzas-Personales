@@ -210,7 +210,7 @@ function Budgets({ user }) {
                                 <option value="" disabled>Selecciona una categoría</option>
                                 {categories.map(c => (
                                     <option key={c.id} value={c.id}>
-                                        {c.name}
+                                        {c.icon} {c.name}
                                     </option>
                                 ))}
                             </select>

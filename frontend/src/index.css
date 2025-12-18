@@ -443,7 +443,8 @@ select.form-input option {
   color: var(--color-success);
 }
 
-``` color: var(--color-danger);
+.transaction-amount.expense {
+  color: var(--color-danger);
 }
 
 /* Animations */
@@ -456,18 +457,6 @@ select.form-input option {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.85;
   }
 }
 
