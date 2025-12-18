@@ -23,7 +23,7 @@ function Budgets({ user }) {
         try {
             // Cargar categorías, presupuestos y estadísticas del mes actual simultáneamente
             const [catsRes, budgetsRes, statsRes] = await Promise.all([
-                api.get('/categories'),
+                api.get(`/categories?userId=${user.id}`),
                 api.get(`/budgets/${user.id}?month=${currentMonth}&year=${currentYear}`),
                 api.get(`/transactions/stats/${user.id}?month=${currentMonth}&year=${currentYear}`)
             ]);
