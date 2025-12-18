@@ -229,6 +229,62 @@ export const getCategoryStats = async (req, res) => {
     }
 };
 
+// Obtener comparativa interanual (este mes vs mismo mes año anterior)
+export const getHistoricalComparison = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { month, year } = req.query;
+
+        if (!month || !year) {
+            return res.status(400).json({ error: 'Mes y año son requeridos' });
+        }
+
+        const currentYear = parseInt(year);
+        const prevYear = currentYear - 1;
+        const currentMonth = parseInt(month);
+
+        // Rango Mes Actual
+        const startCurrent = new Date(currentYear, currentMonth - 1, 1);
+        const endCurrent = new Date(currentYear, currentMonth, 0, 23, 59, 59);
+
+        // Rango Mes Año Pasado
+        const startPrev = new Date(prevYear, currentMonth - 1, 1);
+        const endPrev = new Date(prevYear, currentMonth, 0, 23, 59, 59);
+
+        const [currentTransactions, prevTransactions] = await Promise.all([
+            prisma.transaction.findMany({
+                where: {
+                    userId: parseInt(userId),
+                    date: { gte: startCurrent, lte: endCurrent }
+                }
+            }),
+            prisma.transaction.findMany({
+                where: {
+                    userId: parseInt(userId),
+                    date: { gte: startPrev, lte: endPrev }
+                }
+            })
+        ]);
+
+        const calc = (txs) => {
+            const income = txs.filter(t => t.type === 'income').reduce((s, t) => s + parseFloat(t.amount), 0);
+            const expenses = txs.filter(t => t.type === 'expense').reduce((s, t) => s + parseFloat(t.amount), 0);
+            return { income, expenses, balance: income - expenses };
+        };
+
+        res.json({
+            current: calc(currentTransactions),
+            previous: calc(prevTransactions),
+            month: currentMonth,
+            years: { current: currentYear, previous: prevYear }
+        });
+
+    } catch (error) {
+        console.error('Error en comparativa histórica:', error);
+        res.status(500).json({ error: 'Error al obtener comparativa histórica' });
+    }
+};
+
 // Exportar transacciones a CSV
 export const exportTransactions = async (req, res) => {
     try {

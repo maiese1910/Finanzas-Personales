@@ -6,6 +6,7 @@ import {
     deleteTransaction,
     getUserBalance,
     getCategoryStats,
+    getHistoricalComparison,
     exportTransactions
 } from '../controllers/transactionController.js';
 
@@ -20,6 +21,7 @@ router.delete('/:id', deleteTransaction);
 // Rutas de estadísticas
 router.get('/balance/:userId', getUserBalance);
 router.get('/stats/:userId', getCategoryStats);
+router.get('/historical/:userId', getHistoricalComparison);
 router.get('/export/:userId', exportTransactions);
 
 export default router;

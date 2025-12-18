@@ -7,6 +7,8 @@ import MonthlyBarChart from './components/MonthlyBarChart';
 import FinancialAdvisor from './components/FinancialAdvisor';
 import CategoryList from './components/CategoryList';
 import Budgets from './components/Budgets';
+import AdvancedInsights from './components/AdvancedInsights';
+import YearlyComparisonChart from './components/YearlyComparisonChart';
 import api from './services/api';
 import './index.css';
 
@@ -274,6 +276,10 @@ function Dashboard({ user }) {
       <div className="grid grid-2">
         <MonthlyBarChart user={user} />
         <ExpenseChart user={user} />
+      </div>
+
+      <div className="mt-3">
+        <YearlyComparisonChart user={user} />
       </div>
     </div>
   );
