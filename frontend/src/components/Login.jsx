@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from '../services/api';
 
 function Login({ onLogin }) {
     const [isRegistering, setIsRegistering] = useState(false);
@@ -16,34 +17,32 @@ function Login({ onLogin }) {
 
         try {
             const endpoint = isRegistering
-                ? '/api/users'
-                : '/api/users/login';
+                ? '/users'
+                : '/users/login';
 
             const body = isRegistering
                 ? { email, name, username }
                 : { identifier };
 
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(body),
-            });
+            const response = await api.post(endpoint, body);
+            onLogin(response.data);
+        } catch (err) {
+            console.error('Error de autenticación:', err);
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                if (response.status === 404 && !isRegistering) {
+            if (err.response) {
+                // El servidor respondió con un error (4xx, 5xx)
+                if (err.response.status === 404 && !isRegistering) {
                     setError('Usuario no encontrado. ¿Quieres registrarte?');
                 } else {
-                    throw new Error(data.error || 'Error en la solicitud');
+                    setError(err.response.data?.error || 'Error en el servidor. Inténtalo de nuevo.');
                 }
+            } else if (err.request) {
+                // La petición se hizo pero no hubo respuesta (Error de red)
+                setError('No se pudo conectar con el servidor. Revisa tu conexión.');
             } else {
-                onLogin(data);
+                // Error al configurar la petición
+                setError('Ocurrió un error inesperado. Inténtalo más tarde.');
             }
-        } catch (err) {
-            setError(err.message);
         } finally {
             setLoading(false);
         }
