@@ -84,7 +84,7 @@ function App() {
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select
-            value={['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency) ? user.currency : 'CUSTOM'}
+            value={['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency || '$') ? (user.currency || '$') : 'CUSTOM'}
             onChange={handleCurrencyChange}
             className="btn btn-outline"
             style={{
@@ -114,7 +114,7 @@ function App() {
             <option value="CNY">CNY (¥)</option>
             <option value="CAD">CAD ($)</option>
             <option value="AUD">AUD ($)</option>
-            <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency) ? 'Otra...' : `Otra (${user.currency})`}</option>
+            <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency || '$') ? 'Otra...' : `Otra (${user.currency || '$'})`}</option>
           </select>
           <button
             onClick={toggleTheme}
