@@ -43,7 +43,14 @@ function App() {
   };
 
   const handleCurrencyChange = async (e) => {
-    const newCurrency = e.target.value;
+    let newCurrency = e.target.value;
+
+    if (newCurrency === 'CUSTOM') {
+      const custom = window.prompt('Introduce el símbolo de tu moneda (ej: CHF, BRL, ₿):');
+      if (!custom) return;
+      newCurrency = custom;
+    }
+
     try {
       const response = await api.patch(`/users/profile/${user.id}`, { currency: newCurrency });
       const updatedUser = { ...user, currency: response.data.currency };
@@ -77,7 +84,7 @@ function App() {
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select
-            value={user.currency || '$'}
+            value={['$', '€', '£', 'ARS', 'MXN', 'COP'].includes(user.currency) ? user.currency : 'CUSTOM'}
             onChange={handleCurrencyChange}
             className="btn btn-outline"
             style={{
@@ -93,9 +100,16 @@ function App() {
             <option value="$">$ (USD)</option>
             <option value="€">€ (EUR)</option>
             <option value="£">£ (GBP)</option>
-            <option value="ARS">ARS ($)</option>
-            <option value="MXN">MXN ($)</option>
-            <option value="COP">COP ($)</option>
+            <option value="ARS">ARS</option>
+            <option value="MXN">MXN</option>
+            <option value="COP">COP</option>
+            <option value="BRL">BRL (R$)</option>
+            <option value="CLP">CLP ($)</option>
+            <option value="PEN">PEN (S/)</option>
+            <option value="UYU">UYU ($)</option>
+            <option value="PYG">PYG (₲)</option>
+            <option value="BOB">BOB (Bs)</option>
+            <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB'].includes(user.currency) ? 'Otra...' : `Otra (${user.currency})`}</option>
           </select>
           <button
             onClick={toggleTheme}
@@ -120,29 +134,31 @@ function App() {
       </header>
 
       {/* Navegación */}
-      <nav className="nav">
-        <button
-          className={`nav-link ${view === 'dashboard' ? 'active' : ''}`}
-          onClick={() => setView('dashboard')}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-          Panel Principal
-        </button>
-        <button
-          className={`nav-link ${view === 'transactions' ? 'active' : ''}`}
-          onClick={() => setView('transactions')}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>
-          Movimientos
-        </button>
-        <button
-          className={`nav-link ${view === 'categories' ? 'active' : ''}`}
-          onClick={() => setView('categories')}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>
-          Categorías
-        </button>
-      </nav>
+      <div className="nav-container">
+        <nav className="nav">
+          <button
+            className={`nav-link ${view === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setView('dashboard')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            Panel Principal
+          </button>
+          <button
+            className={`nav-link ${view === 'transactions' ? 'active' : ''}`}
+            onClick={() => setView('transactions')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>
+            Movimientos
+          </button>
+          <button
+            className={`nav-link ${view === 'categories' ? 'active' : ''}`}
+            onClick={() => setView('categories')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>
+            Categorías
+          </button>
+        </nav>
+      </div>
 
       {/* Content */}
       <div className="animate-in">
