@@ -147,6 +147,21 @@ h6 {
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+p,
+span,
+label {
+  color: inherit;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
 }
 
 h1 {
@@ -433,6 +448,7 @@ select.form-input option {
 .transaction-info h4 {
   font-size: 1rem;
   margin-bottom: 0.25rem;
+  color: var(--text-primary);
 }
 
 .transaction-info p {
