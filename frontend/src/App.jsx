@@ -84,7 +84,7 @@ function App() {
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <select
-            value={['$', '€', '£', 'ARS', 'MXN', 'COP'].includes(user.currency) ? user.currency : 'CUSTOM'}
+            value={['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency) ? user.currency : 'CUSTOM'}
             onChange={handleCurrencyChange}
             className="btn btn-outline"
             style={{
@@ -109,7 +109,12 @@ function App() {
             <option value="UYU">UYU ($)</option>
             <option value="PYG">PYG (₲)</option>
             <option value="BOB">BOB (Bs)</option>
-            <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB'].includes(user.currency) ? 'Otra...' : `Otra (${user.currency})`}</option>
+            <option value="CHF">CHF (Fr.)</option>
+            <option value="JPY">JPY (¥)</option>
+            <option value="CNY">CNY (¥)</option>
+            <option value="CAD">CAD ($)</option>
+            <option value="AUD">AUD ($)</option>
+            <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency) ? 'Otra...' : `Otra (${user.currency})`}</option>
           </select>
           <button
             onClick={toggleTheme}
@@ -195,14 +200,29 @@ function Dashboard({ user }) {
 
   const formatCurrency = (amount) => {
     const symbol = user.currency || '$';
-    if (['ARS', 'MXN', 'COP'].includes(symbol)) {
-      return `${symbol === 'ARS' ? '$' : symbol} ${new Intl.NumberFormat('es-AR').format(amount)}`;
+
+    // LatAm and common regional formatting
+    if (['ARS', 'MXN', 'COP', 'CLP', 'UYU', 'PYG', 'BOB', 'PEN', 'BRL'].includes(symbol)) {
+      let displaySymbol = '$';
+      if (symbol === 'PEN') displaySymbol = 'S/';
+      if (symbol === 'BRL') displaySymbol = 'R$';
+      if (symbol === 'PYG') displaySymbol = '₲';
+      if (symbol === 'BOB') displaySymbol = 'Bs';
+
+      return `${displaySymbol} ${new Intl.NumberFormat('es-AR').format(amount)}`;
     }
-    return new Intl.NumberFormat('es-US', {
-      style: 'currency',
-      currency: symbol === '€' ? 'EUR' : symbol === '£' ? 'GBP' : 'USD',
-      currencyDisplay: 'symbol'
-    }).format(amount).replace('$', symbol);
+
+    // Default international formatting
+    try {
+      return new Intl.NumberFormat('es-US', {
+        style: 'currency',
+        currency: symbol === '€' ? 'EUR' : symbol === '£' ? 'GBP' : (symbol.length === 3 ? symbol : 'USD'),
+        currencyDisplay: 'symbol'
+      }).format(amount).replace('$', symbol);
+    } catch (e) {
+      // Fallback if currency code is invalid
+      return `${symbol} ${new Intl.NumberFormat('es-US').format(amount)}`;
+    }
   };
 
   return (
