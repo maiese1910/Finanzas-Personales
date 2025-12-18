@@ -50,44 +50,34 @@ function Login({ onLogin }) {
     };
 
     return (
-        <div className="login-container" style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '100vh'
-        }}>
-            <div className="card" style={{ width: '100%', maxWidth: '400px', padding: '2rem' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <div style={{
-                        background: 'var(--gradient-primary)',
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '14px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 1.25rem',
-                        boxShadow: '0 8px 16px rgba(99, 102, 241, 0.25)'
-                    }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>
+        <div className="login-container">
+            <div className="login-card">
+                <div style={{ textAlign: 'center' }}>
+                    <div className="login-logo-box">
+                        {/* Logo de Rayo - Finanzly */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg>
                     </div>
-                    <h2 style={{ marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-                        {isRegistering ? 'Crear Cuenta' : 'Iniciar Sesión'}
+                    <h2 className="login-title">
+                        {isRegistering ? 'Crea tu Cuenta' : 'Bienvenido a Finanzly'}
                     </h2>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                        {isRegistering ? 'Únete a la gestión profesional' : 'Accede a tu panel financiero'}
+                    <p className="login-subtitle">
+                        {isRegistering ? 'Empieza a tomar el control de tu dinero.' : 'Accede a tu panel financiero inteligente.'}
                     </p>
                 </div>
 
                 {error && (
                     <div style={{
-                        background: 'rgba(239, 68, 68, 0.2)',
-                        color: '#fca5a5',
-                        padding: '0.75rem',
-                        borderRadius: '0.5rem',
-                        marginBottom: '1rem',
+                        background: 'rgba(244, 63, 94, 0.15)',
+                        color: 'var(--color-danger)',
+                        padding: '1rem',
+                        borderRadius: '12px',
+                        marginBottom: '1.5rem',
                         fontSize: '0.875rem',
-                        border: '1px solid rgba(239, 68, 68, 0.3)'
+                        border: '1px solid rgba(244, 63, 94, 0.2)',
+                        textAlign: 'center',
+                        fontWeight: '500'
                     }}>
                         {error}
                     </div>
@@ -103,38 +93,42 @@ function Login({ onLogin }) {
                                 onChange={(e) => setIdentifier(e.target.value)}
                                 required
                                 placeholder="tu_usuario o tu@email.com"
+                                style={{ borderRadius: '12px' }}
                             />
                         </div>
                     ) : (
                         <>
                             <div className="form-group">
-                                <label>Email</label>
+                                <label>Correo Electrónico</label>
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    placeholder="tu@email.com"
+                                    placeholder="ejemplo@correo.com"
+                                    style={{ borderRadius: '12px' }}
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Usuario</label>
+                                <label>Nombre de Usuario</label>
                                 <input
                                     type="text"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     required
-                                    placeholder="Nombre de usuario único"
+                                    placeholder="Nombre de usuario"
+                                    style={{ borderRadius: '12px' }}
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Nombre</label>
+                                <label>Nombre Completo</label>
                                 <input
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    placeholder="Tu Nombre"
+                                    placeholder="¿Cómo te llamas?"
+                                    style={{ borderRadius: '12px' }}
                                 />
                             </div>
                         </>
@@ -144,14 +138,19 @@ function Login({ onLogin }) {
                         type="submit"
                         disabled={loading}
                         className="btn btn-primary"
-                        style={{ width: '100%', marginTop: '1rem' }}
+                        style={{ width: '100%', marginTop: '1rem', padding: '1rem', fontSize: '1rem', borderRadius: '12px' }}
                     >
-                        {loading ? 'Procesando...' : (isRegistering ? 'Crear Cuenta' : 'Entrar')}
+                        {loading ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <div className="spinner" style={{ width: '16px', height: '16px', borderWidth: '2px' }}></div>
+                                Cargando...
+                            </div>
+                        ) : (isRegistering ? 'Registrarme ahora' : 'Iniciar Sesión')}
                     </button>
                 </form>
 
-                <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                    {isRegistering ? '¿Ya tienes una cuenta?' : '¿No tienes una cuenta?'}
+                <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    {isRegistering ? '¿Ya eres parte de Finanzly?' : '¿Aún no tienes cuenta?'}
                     {' '}
                     <button
                         onClick={() => {
@@ -162,12 +161,12 @@ function Login({ onLogin }) {
                             background: 'none',
                             border: 'none',
                             color: 'var(--color-primary)',
-                            fontWeight: '600',
+                            fontWeight: '700',
                             cursor: 'pointer',
-                            textDecoration: 'underline'
+                            padding: '4px 8px'
                         }}
                     >
-                        {isRegistering ? 'Inicia Sesión' : 'Regístrate'}
+                        {isRegistering ? 'Inicia Sesión' : 'Crea una aquí'}
                     </button>
                 </div>
             </div>
