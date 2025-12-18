@@ -21,16 +21,25 @@ function Budgets({ user }) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            // Cargar categorías, presupuestos y estadísticas del mes actual simultáneamente
+            console.log('Fetching data for user:', user.id);
             const [catsRes, budgetsRes, statsRes] = await Promise.all([
                 api.get(`/categories?userId=${user.id}`),
                 api.get(`/budgets/${user.id}?month=${currentMonth}&year=${currentYear}`),
                 api.get(`/transactions/stats/${user.id}?month=${currentMonth}&year=${currentYear}`)
             ]);
 
-            setCategories(catsRes.data.filter(c => c.type === 'expense'));
+            console.log('Categories from API:', catsRes.data);
+            const expenseCats = catsRes.data.filter(c => c.type === 'expense');
+            console.log('Filtered expense categories:', expenseCats);
+
+            setCategories(expenseCats);
             setBudgets(budgetsRes.data);
             setStats(statsRes.data);
+
+            // Si hay categorías de gasto, preseleccionar la primera por defecto
+            if (expenseCats.length > 0 && !selectedCategory) {
+                setSelectedCategory(expenseCats[0]);
+            }
         } catch (error) {
             console.error('Error al cargar datos de presupuestos:', error);
         } finally {
