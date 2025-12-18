@@ -104,7 +104,9 @@ function TransactionForm({ user, onTransactionAdded }) {
                         required
                     >
                         {categories.map(cat => (
-                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                            <option key={cat.id} value={cat.id}>
+                                {cat.icon} {cat.name.startsWith(cat.icon) ? cat.name.replace(cat.icon, '').trim() : cat.name}
+                            </option>
                         ))}
                     </select>
                 </div>

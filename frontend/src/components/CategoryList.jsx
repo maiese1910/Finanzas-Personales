@@ -168,7 +168,9 @@ function CategoryList({ user }) {
                                     {cat.icon || '💰'}
                                 </div>
                                 <div style={{ flex: 1 }}>
-                                    <h4 style={{ margin: 0, fontSize: '1rem' }}>{cat.name}</h4>
+                                    <h4 style={{ margin: 0, fontSize: '1rem' }}>
+                                        {cat.name.startsWith(cat.icon) ? cat.name.replace(cat.icon, '').trim() : cat.name}
+                                    </h4>
                                 </div>
                                 <button
                                     className="btn-icon"
@@ -212,7 +214,9 @@ function CategoryList({ user }) {
                                     {cat.icon || '🧾'}
                                 </div>
                                 <div style={{ flex: 1 }}>
-                                    <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600 }}>{cat.name}</h4>
+                                    <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600 }}>
+                                        {cat.name.startsWith(cat.icon) ? cat.name.replace(cat.icon, '').trim() : cat.name}
+                                    </h4>
                                 </div>
                                 <button
                                     className="btn-icon"

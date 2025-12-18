@@ -143,7 +143,9 @@ function Budgets({ user }) {
                                         {cat.icon || '📁'}
                                     </div>
                                     <div>
-                                        <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'white' }}>{cat.name}</h3>
+                                        <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'white' }}>
+                                            {cat.name.startsWith(cat.icon) ? cat.name.replace(cat.icon, '').trim() : cat.name}
+                                        </h3>
                                         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Meta Mensual</span>
                                     </div>
                                 </div>
@@ -237,7 +239,7 @@ function Budgets({ user }) {
                                 <option value="" disabled>Selecciona una categoría</option>
                                 {categories.map(c => (
                                     <option key={c.id} value={c.id}>
-                                        {c.icon} {c.name}
+                                        {c.icon} {c.name.startsWith(c.icon) ? c.name.replace(c.icon, '').trim() : c.name}
                                     </option>
                                 ))}
                             </select>

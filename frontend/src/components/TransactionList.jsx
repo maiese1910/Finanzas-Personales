@@ -60,7 +60,9 @@ function TransactionList({ user, refreshTrigger }) {
                                 </div>
                                 <div className="transaction-info">
                                     <h4>{t.description}</h4>
-                                    <p>{new Date(t.date).toLocaleDateString()} • {t.category.name}</p>
+                                    <p>
+                                        {new Date(t.date).toLocaleDateString()} • {t.category.name.startsWith(t.category.icon) ? t.category.name.replace(t.category.icon, '').trim() : t.category.name}
+                                    </p>
                                 </div>
                             </div>
 
