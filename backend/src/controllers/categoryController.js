@@ -18,8 +18,8 @@ export const getCategories = async (req, res) => {
 
         res.json(categories);
     } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({ error: 'Error fetching categories' });
+        console.error('Error al obtener categorías:', error);
+        res.status(500).json({ error: 'Error al obtener categorías' });
     }
 };
 
@@ -29,11 +29,11 @@ export const createCategory = async (req, res) => {
         const { name, type, color, icon, userId } = req.body;
 
         if (!name || !type || !userId) {
-            return res.status(400).json({ error: 'Missing required fields' });
+            return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
 
         if (type !== 'income' && type !== 'expense') {
-            return res.status(400).json({ error: 'Type must be "income" or "expense"' });
+            return res.status(400).json({ error: 'El tipo debe ser "income" o "expense"' });
         }
 
         const category = await prisma.category.create({
@@ -48,8 +48,8 @@ export const createCategory = async (req, res) => {
 
         res.status(201).json(category);
     } catch (error) {
-        console.error('Error creating category:', error);
-        res.status(500).json({ error: 'Error creating category' });
+        console.error('Error al crear categoría:', error);
+        res.status(500).json({ error: 'Error al crear categoría' });
     }
 };
 
@@ -72,8 +72,8 @@ export const updateCategory = async (req, res) => {
 
         res.json(category);
     } catch (error) {
-        console.error('Error updating category:', error);
-        res.status(500).json({ error: 'Error updating category' });
+        console.error('Error al actualizar categoría:', error);
+        res.status(500).json({ error: 'Error al actualizar categoría' });
     }
 };
 
@@ -89,7 +89,7 @@ export const deleteCategory = async (req, res) => {
 
         if (transactionCount > 0) {
             return res.status(400).json({
-                error: 'Cannot delete category with existing transactions',
+                error: 'No se puede eliminar una categoría que tiene movimientos asociados',
                 transactionCount
             });
         }
@@ -98,9 +98,9 @@ export const deleteCategory = async (req, res) => {
             where: { id: parseInt(id) }
         });
 
-        res.json({ message: 'Category deleted successfully' });
+        res.json({ message: 'Categoría eliminada correctamente' });
     } catch (error) {
-        console.error('Error deleting category:', error);
-        res.status(500).json({ error: 'Error deleting category' });
+        console.error('Error al eliminar categoría:', error);
+        res.status(500).json({ error: 'Error al eliminar categoría' });
     }
 };

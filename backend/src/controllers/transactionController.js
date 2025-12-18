@@ -47,8 +47,8 @@ export const getTransactions = async (req, res) => {
 
         res.json(transactions);
     } catch (error) {
-        console.error('Error fetching transactions:', error);
-        res.status(500).json({ error: 'Error fetching transactions' });
+        console.error('Error al obtener movimientos:', error);
+        res.status(500).json({ error: 'Error al obtener movimientos' });
     }
 };
 
@@ -59,11 +59,11 @@ export const createTransaction = async (req, res) => {
 
         // Validación
         if (!amount || !description || !date || !type || !categoryId || !userId) {
-            return res.status(400).json({ error: 'Missing required fields' });
+            return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
 
         if (type !== 'income' && type !== 'expense') {
-            return res.status(400).json({ error: 'Type must be "income" or "expense"' });
+            return res.status(400).json({ error: 'El tipo debe ser "income" o "expense"' });
         }
 
         const transaction = await prisma.transaction.create({
@@ -82,8 +82,8 @@ export const createTransaction = async (req, res) => {
 
         res.status(201).json(transaction);
     } catch (error) {
-        console.error('Error creating transaction:', error);
-        res.status(500).json({ error: 'Error creating transaction' });
+        console.error('Error al crear movimiento:', error);
+        res.status(500).json({ error: 'Error al crear movimiento' });
     }
 };
 
@@ -110,8 +110,8 @@ export const updateTransaction = async (req, res) => {
 
         res.json(transaction);
     } catch (error) {
-        console.error('Error updating transaction:', error);
-        res.status(500).json({ error: 'Error updating transaction' });
+        console.error('Error al actualizar movimiento:', error);
+        res.status(500).json({ error: 'Error al actualizar movimiento' });
     }
 };
 
@@ -124,10 +124,10 @@ export const deleteTransaction = async (req, res) => {
             where: { id: parseInt(id) }
         });
 
-        res.json({ message: 'Transaction deleted successfully' });
+        res.json({ message: 'Movimiento eliminado correctamente' });
     } catch (error) {
-        console.error('Error deleting transaction:', error);
-        res.status(500).json({ error: 'Error deleting transaction' });
+        console.error('Error al eliminar movimiento:', error);
+        res.status(500).json({ error: 'Error al eliminar movimiento' });
     }
 };
 
@@ -168,8 +168,8 @@ export const getUserBalance = async (req, res) => {
             transactionCount: transactions.length
         });
     } catch (error) {
-        console.error('Error calculating balance:', error);
-        res.status(500).json({ error: 'Error calculating balance' });
+        console.error('Error al calcular el balance:', error);
+        res.status(500).json({ error: 'Error al calcular el balance' });
     }
 };
 
@@ -224,7 +224,7 @@ export const getCategoryStats = async (req, res) => {
 
         res.json(stats);
     } catch (error) {
-        console.error('Error getting category stats:', error);
-        res.status(500).json({ error: 'Error getting category stats' });
+        console.error('Error al obtener estadísticas:', error);
+        res.status(500).json({ error: 'Error al obtener estadísticas' });
     }
 };

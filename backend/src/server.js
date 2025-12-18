@@ -7,6 +7,7 @@ import { PrismaClient } from '@prisma/client';
 import transactionRoutes from './routes/transactions.js';
 import categoryRoutes from './routes/categories.js';
 import userRoutes from './routes/users.js';
+import aiRoutes from './routes/ai.js';
 
 // Configuración
 dotenv.config();
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/ai', aiRoutes);
 app.use('/api/transactions', transactionRoutes);
 
 // Error handling middleware
