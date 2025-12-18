@@ -15,17 +15,17 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  /* Vibrant Accents */
-  --color-primary: #3b82f6;
+  /* Vibrant Accents - Elegant Royal Blue Palette */
+  --color-primary: #0066ff;
   --color-success: #10b981;
-  --color-danger: #f43f5e;
+  --color-danger: #ef4444;
   --color-warning: #f59e0b;
 
-  /* Vibrant Gradients */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  /* Vibrant Gradients - Deep Elegant Blues */
+  --gradient-primary: linear-gradient(135deg, #0080ff 0%, #0066ff 100%);
   --gradient-success: linear-gradient(135deg, #34d399 0%, #10b981 100%);
   --gradient-income: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  --gradient-expense: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+  --gradient-expense: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -183,12 +183,12 @@ p {
 .btn-primary {
   background: var(--gradient-primary);
   color: white;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.35);
 }
 
 .btn-success {
@@ -394,24 +394,22 @@ select option {
 }
 
 .nav-link.active {
-  color: #0f172a;
-  /* Texto oscuro para contraste sobre blanco */
+  color: white;
+  /* Volvemos a blanco sobre fondo azul elegante */
   transform: scale(1.08);
-  /* Más pronunciado */
   font-weight: 700;
 }
 
 .nav-link.active::before {
-  background: white;
+  background: var(--gradient-primary);
   opacity: 1;
   transform: scale(1);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
 }
 
 .nav-link.active svg {
   opacity: 1;
-  stroke: #0f172a;
-  /* Icono oscuro */
+  stroke: white;
   animation: pulse-icon 2s infinite ease-in-out;
 }
 
@@ -667,8 +665,8 @@ select option {
   align-items: center;
   min-height: 100vh;
   padding: var(--spacing-md);
-  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
-    radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent);
+  background: radial-gradient(circle at top right, rgba(0, 102, 255, 0.12), transparent),
+    radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent);
 }
 
 .login-card {
@@ -702,7 +700,7 @@ select option {
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
 }
 
 .login-title {
@@ -801,7 +799,7 @@ select option {
 .custom-datepicker-wrapper .react-datepicker__input-container input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
 }
 
 .react-datepicker {
