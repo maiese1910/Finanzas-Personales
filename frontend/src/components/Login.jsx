@@ -9,11 +9,18 @@ function Login({ onLogin }) {
     const [name, setName] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [slowLoading, setSlowLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);
+        setSlowLoading(false);
+
+        // Timer para avisar si el servidor tarda mucho (Render Cold Start)
+        const timer = setTimeout(() => {
+            setSlowLoading(true);
+        }, 6000); // 6 segundos
 
         try {
             const endpoint = isRegistering
@@ -44,7 +51,9 @@ function Login({ onLogin }) {
                 setError('Ocurrió un error inesperado. Inténtalo más tarde.');
             }
         } finally {
+            clearTimeout(timer);
             setLoading(false);
+            setSlowLoading(false);
         }
     };
 
@@ -79,6 +88,22 @@ function Login({ onLogin }) {
                         fontWeight: '500'
                     }}>
                         {error}
+                    </div>
+                )}
+
+                {slowLoading && !error && (
+                    <div style={{
+                        background: 'rgba(245, 158, 11, 0.15)',
+                        color: '#fbbf24',
+                        padding: '0.8rem',
+                        borderRadius: '12px',
+                        marginBottom: '1.5rem',
+                        fontSize: '0.8rem',
+                        border: '1px solid rgba(245, 158, 11, 0.2)',
+                        textAlign: 'center'
+                    }}>
+                        🚀 El servidor de la nube está "despertando".
+                        <br />Por favor, espera unos segundos más...
                     </div>
                 )}
 
