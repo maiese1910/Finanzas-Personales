@@ -41,6 +41,18 @@ function App() {
     setUser(null);
   };
 
+  const handleCurrencyChange = async (e) => {
+    const newCurrency = e.target.value;
+    try {
+      const response = await api.patch(`/users/profile/${user.id}`, { currency: newCurrency });
+      const updatedUser = { ...user, currency: response.data.currency };
+      localStorage.setItem('finance_user', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error al cambiar moneda:', error);
+    }
+  };
+
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
@@ -63,6 +75,27 @@ function App() {
           <h1>Control de Finanzas</h1>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <select
+            value={user.currency || '$'}
+            onChange={handleCurrencyChange}
+            className="btn btn-outline"
+            style={{
+              background: 'transparent',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '8px',
+              padding: '0.4rem 0.5rem',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            <option value="$">$ (USD)</option>
+            <option value="€">€ (EUR)</option>
+            <option value="£">£ (GBP)</option>
+            <option value="ARS">ARS ($)</option>
+            <option value="MXN">MXN ($)</option>
+            <option value="COP">COP ($)</option>
+          </select>
           <button
             onClick={toggleTheme}
             className="btn btn-outline"
@@ -141,10 +174,16 @@ function Dashboard({ user }) {
   };
 
   const formatCurrency = (amount) => {
+    const symbol = user.currency || '$';
+    // Para monedas como ARS, COP, MXN usamos el símbolo directamente si no queremos forzar formato ISO completo
+    if (['ARS', 'MXN', 'COP'].includes(symbol)) {
+      return `${symbol === 'ARS' ? '$' : symbol} ${new Intl.NumberFormat('es-AR').format(amount)}`;
+    }
     return new Intl.NumberFormat('es-US', {
       style: 'currency',
-      currency: 'USD'
-    }).format(amount);
+      currency: symbol === '€' ? 'EUR' : symbol === '£' ? 'GBP' : 'USD',
+      currencyDisplay: 'symbol'
+    }).format(amount).replace('$', symbol);
   };
 
   return (

@@ -67,7 +67,7 @@ function TransactionList({ user, refreshTrigger }) {
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                 <div className={`transaction-amount ${t.type}`}>
                                     {t.type === 'expense' ? '-' : '+'}
-                                    ${parseFloat(t.amount).toFixed(2)}
+                                    {user.currency || '$'} {parseFloat(t.amount).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </div>
                                 <button
                                     onClick={() => handleDelete(t.id)}

@@ -7,7 +7,9 @@ export const getUsers = async (req, res) => {
             select: {
                 id: true,
                 email: true,
+                username: true,
                 name: true,
+                currency: true,
                 createdAt: true
             }
         });
@@ -29,7 +31,9 @@ export const getUserById = async (req, res) => {
             select: {
                 id: true,
                 email: true,
+                username: true,
                 name: true,
+                currency: true,
                 createdAt: true
             }
         });
@@ -67,6 +71,7 @@ export const loginUser = async (req, res) => {
                 email: true,
                 username: true,
                 name: true,
+                currency: true,
                 createdAt: true
             }
         });
@@ -131,15 +136,24 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { email, name } = req.body;
+        const { email, name, currency } = req.body;
 
         const data = {};
         if (email !== undefined) data.email = email;
         if (name !== undefined) data.name = name;
+        if (currency !== undefined) data.currency = currency;
 
         const user = await prisma.user.update({
             where: { id: parseInt(id) },
-            data
+            data,
+            select: {
+                id: true,
+                email: true,
+                username: true,
+                name: true,
+                currency: true,
+                createdAt: true
+            }
         });
 
         res.json(user);

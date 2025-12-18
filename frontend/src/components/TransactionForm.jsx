@@ -84,7 +84,7 @@ function TransactionForm({ user, onTransactionAdded }) {
                     </div>
 
                     <div className="form-group">
-                        <label>Monto</label>
+                        <label>Monto ({user.currency || '$'})</label>
                         <input
                             type="number"
                             step="0.01"
