@@ -21,27 +21,45 @@ function Budgets({ user }) {
     const fetchData = async () => {
         setLoading(true);
         try {
-            console.log('Fetching data for user:', user.id);
-            const [catsRes, budgetsRes, statsRes] = await Promise.all([
-                api.get(`/categories?userId=${user.id}`),
-                api.get(`/budgets/${user.id}?month=${currentMonth}&year=${currentYear}`),
-                api.get(`/transactions/stats/${user.id}?month=${currentMonth}&year=${currentYear}`)
-            ]);
+            console.log('Fetching categories for user:', user.id);
 
-            console.log('Categories from API:', catsRes.data);
-            const expenseCats = catsRes.data.filter(c => c.type === 'expense');
-            console.log('Filtered expense categories:', expenseCats);
+            // Cargar categorías primero de forma independiente
+            try {
+                const catsRes = await api.get(`/categories?userId=${user.id}`);
+                console.log('Categories from API:', catsRes.data);
+                const expenseCats = catsRes.data.filter(c => c.type === 'expense');
+                console.log('Filtered expense categories:', expenseCats);
+                setCategories(expenseCats);
 
-            setCategories(expenseCats);
-            setBudgets(budgetsRes.data);
-            setStats(statsRes.data);
-
-            // Si hay categorías de gasto, preseleccionar la primera por defecto
-            if (expenseCats.length > 0 && !selectedCategory) {
-                setSelectedCategory(expenseCats[0]);
+                if (expenseCats.length > 0 && !selectedCategory) {
+                    setSelectedCategory(expenseCats[0]);
+                }
+            } catch (err) {
+                console.error('Error al cargar categorías:', err);
+                // Si falla la API con userId, intentar sin él por si acaso el backend es estricto
+                try {
+                    const fallbackRes = await api.get('/categories');
+                    setCategories(fallbackRes.data.filter(c => c.type === 'expense'));
+                } catch (e) {
+                    console.error('Fallo total al cargar categorías');
+                }
             }
+
+            // Cargar presupuestos y estadísticas (esto puede fallar con 404 y no debe romper las categorías)
+            try {
+                const [budgetsRes, statsRes] = await Promise.all([
+                    api.get(`/budgets/${user.id}?month=${currentMonth}&year=${currentYear}`).catch(e => ({ data: [] })),
+                    api.get(`/transactions/stats/${user.id}?month=${currentMonth}&year=${currentYear}`).catch(e => ({ data: [] }))
+                ]);
+
+                setBudgets(budgetsRes.data);
+                setStats(statsRes.data);
+            } catch (error) {
+                console.error('Error al cargar datos secundarios (presupuestos/stats):', error);
+            }
+
         } catch (error) {
-            console.error('Error al cargar datos de presupuestos:', error);
+            console.error('Error general en fetchData:', error);
         } finally {
             setLoading(false);
         }
