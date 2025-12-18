@@ -334,8 +334,37 @@ select option {
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
-.form input::placeholder {
+.form input::placeholder,
+.form-input::placeholder {
   color: var(--text-muted);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius-small);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all var(--transition-base);
+  appearance: none;
+}
+
+select.form-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  padding-right: 3rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 /* Balance Cards */
@@ -512,12 +541,27 @@ select option {
 }
 
 
+/* Navigation wrapper for horizontal scroll on mobile */
+.nav-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--spacing-lg);
+  padding: 0 5px;
+  /* Extra space for shadows */
+}
+
+.nav-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 /* Navigation - Premium Fintech Style (Centered & Large) */
 .nav-container {
   display: flex;
   justify-content: center;
-  width: 100%;
-  margin-bottom: var(--spacing-lg);
+  width: max-content;
+  min-width: 100%;
+  margin: 0 auto;
 }
 
 .nav {
@@ -529,6 +573,13 @@ select option {
   border-radius: 18px;
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(20px);
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    justify-content: flex-start;
+    padding-bottom: 5px;
+  }
 }
 
 .nav-link {

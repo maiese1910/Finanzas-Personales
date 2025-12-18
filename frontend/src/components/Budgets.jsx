@@ -200,10 +200,19 @@ function Budgets({ user }) {
                             <label>Categoría Seleccionada</label>
                             <select
                                 className="form-input"
-                                value={selectedCategory?.id}
-                                onChange={(e) => setSelectedCategory(categories.find(c => c.id === parseInt(e.target.value)))}
+                                value={selectedCategory?.id || ''}
+                                onChange={(e) => {
+                                    const id = parseInt(e.target.value);
+                                    const cat = categories.find(c => c.id === id);
+                                    setSelectedCategory(cat);
+                                }}
                             >
-                                {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
+                                <option value="" disabled>Selecciona una categoría</option>
+                                {categories.map(c => (
+                                    <option key={c.id} value={c.id}>
+                                        {c.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
