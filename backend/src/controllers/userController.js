@@ -107,12 +107,22 @@ export const createUser = async (req, res) => {
 
         // Seed default categories for the new user
         const defaultCategories = [
-            { name: '🏦 Nómina y Renta', type: 'income', icon: '💼', color: '#10b981' },
-            { name: '🥗 Alimentación', type: 'expense', icon: '🍽️', color: '#f43f5e' },
-            { name: '🚆 Transporte', type: 'expense', icon: '🛤️', color: '#3b82f6' },
-            { name: '🏢 Alquiler y Servicios', type: 'expense', icon: '🏛️', color: '#8b5cf6' },
-            { name: '🎭 Cultura y Ocio', type: 'expense', icon: '🎟️', color: '#f59e0b' },
-            { name: '🏥 Salud y Bienestar', type: 'expense', icon: '⚕️', color: '#ef4444' }
+            // Ingresos
+            { name: '💼 Salario / Nómina', type: 'income', icon: '💼', color: '#10b981' },
+            { name: '📈 Inversiones', type: 'income', icon: '📈', color: '#059669' },
+            { name: '🖱️ Freelance', type: 'income', icon: '⌨️', color: '#047857' },
+            { name: '🎁 Otros Ingresos', type: 'income', icon: '💰', color: '#065f46' },
+            // Gastos
+            { name: '🏠 Vivienda', type: 'expense', icon: '🏠', color: '#f43f5e' },
+            { name: '⚡ Servicios', type: 'expense', icon: '⚡', color: '#e11d48' },
+            { name: '🛒 Alimentación', type: 'expense', icon: '🛒', color: '#be123c' },
+            { name: '🚗 Transporte', type: 'expense', icon: '🚗', color: '#3b82f6' },
+            { name: '🏥 Salud', type: 'expense', icon: '🏥', color: '#2563eb' },
+            { name: '🍿 Ocio y Restaurantes', type: 'expense', icon: '🎭', color: '#8b5cf6' },
+            { name: '📱 Suscripciones', type: 'expense', icon: '📱', color: '#7c3aed' },
+            { name: '🖋️ Educación', type: 'expense', icon: '📚', color: '#f59e0b' },
+            { name: '🛍️ Ropa y Compras', type: 'expense', icon: '🛍️', color: '#d97706' },
+            { name: '💳 Impuestos', type: 'expense', icon: '📑', color: '#4b5563' }
         ];
 
         await prisma.category.createMany({
