@@ -11,18 +11,30 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique
-  username     String        @unique
-  name         String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  currency     String        @default("$")
+  id               Int           @id @default(autoincrement())
+  email            String        @unique
+  username         String        @unique
+  password         String?       // Opcional para soportar migración o OAuth futuro
+  name             String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  currency         String        @default("$")
+  
+  // Seguridad y Verificación
+  isVerified       Boolean       @default(false)
+  verificationToken String?
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
+  // SaaS / Stripe
+  stripeCustomerId String?       @unique
+  subscriptionStatus String      @default("free") // "free", "active", "past_due", "canceled"
+  subscriptionId   String?       @unique
   
   // Relaciones
-  categories   Category[]
-  transactions Transaction[]
-  budgets      Budget[]
+  categories       Category[]
+  transactions     Transaction[]
+  budgets          Budget[]
   
   @@map("users")
 }

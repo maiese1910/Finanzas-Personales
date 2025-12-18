@@ -9,6 +9,7 @@ import categoryRoutes from './routes/categories.js';
 import userRoutes from './routes/users.js';
 import aiRoutes from './routes/ai.js';
 import budgetRoutes from './routes/budgets.js';
+import stripeRoutes from './routes/stripe.js';
 
 // Configuración
 dotenv.config();
@@ -48,6 +49,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/budgets', budgetRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

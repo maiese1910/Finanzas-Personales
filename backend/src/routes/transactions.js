@@ -10,7 +10,11 @@ import {
     exportTransactions
 } from '../controllers/transactionController.js';
 
+import { protect } from '../middleware/authMiddleware.js';
+
 const router = express.Router();
+
+router.use(protect);
 
 // Rutas de transacciones
 router.get('/', getTransactions);

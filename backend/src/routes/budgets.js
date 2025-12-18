@@ -1,7 +1,12 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
+import { protect } from '../middleware/authMiddleware.js';
+
 const router = express.Router();
+router.use(protect);
+
+// Rutas de presupuestos
 const prisma = new PrismaClient();
 
 // Obtener presupuestos de un usuario para un mes/año específico
