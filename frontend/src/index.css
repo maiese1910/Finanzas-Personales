@@ -332,53 +332,67 @@ select option {
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem 1.75rem;
-  /* Larger padding */
   color: var(--text-secondary);
   text-decoration: none;
   border-radius: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 600;
-  /* Bolder */
   font-size: 1.05rem;
-  /* Larger font */
   border: none;
   background: transparent;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+}
+
+/* Pseudo-elemento para el fondo degradado (permite transición suave) */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  border-radius: 14px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.9);
 }
 
 .nav-link:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.04);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .nav-link.active {
   color: white;
-  background: var(--gradient-primary);
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-  transform: scale(1.05);
+  transform: scale(1.08);
+  /* Más pronunciado */
+}
+
+.nav-link.active::before {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }
 
 .nav-link.active svg {
   opacity: 1;
   stroke: white;
-  animation: pulse-icon 2s infinite;
+  animation: pulse-icon 2s infinite ease-in-out;
 }
 
 @keyframes pulse-icon {
-  0% {
+
+  0%,
+  100% {
     transform: scale(1);
+    filter: drop-shadow(0 0 0px white);
   }
 
   50% {
     transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
   }
 }
 
