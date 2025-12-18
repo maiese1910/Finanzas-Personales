@@ -143,7 +143,7 @@ function Budgets({ user }) {
                                         {cat.icon || '📁'}
                                     </div>
                                     <div>
-                                        <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'white' }}>
+                                        <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'var(--text-primary)' }}>
                                             {cat.name.startsWith(cat.icon) ? cat.name.replace(cat.icon, '').trim() : cat.name}
                                         </h3>
                                         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Meta Mensual</span>
@@ -164,14 +164,15 @@ function Budgets({ user }) {
 
                             <div className="flex-between mb-2">
                                 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Gastado</span>
-                                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: isOver ? 'var(--color-danger)' : 'white' }}>
+                                <span style={{ fontSize: '1.1rem', fontWeight: 700, color: isOver ? 'var(--color-danger)' : 'var(--text-primary)' }}>
                                     {user.currency}{spent.toLocaleString()}
                                 </span>
                             </div>
 
                             <div style={{
                                 height: '12px',
-                                background: 'rgba(255,255,255,0.05)',
+                                background: 'var(--border-color)',
+                                opacity: 0.6,
                                 borderRadius: '10px',
                                 overflow: 'hidden',
                                 margin: '1rem 0'
