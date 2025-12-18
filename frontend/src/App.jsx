@@ -110,6 +110,25 @@ function App() {
             <option value="AUD">AUD ($)</option>
             <option value="CUSTOM">{['$', '€', '£', 'ARS', 'MXN', 'COP', 'BRL', 'CLP', 'PEN', 'UYU', 'PYG', 'BOB', 'CHF', 'JPY', 'CNY', 'CAD', 'AUD'].includes(user.currency || '$') ? 'Otra...' : `Otra (${user.currency || '$'})`}</option>
           </select>
+          <a
+            href="/Finanzly.apk"
+            download
+            className="btn btn-outline"
+            style={{
+              height: '38px',
+              padding: '0.4rem 0.8rem',
+              borderColor: 'rgba(16, 185, 129, 0.4)',
+              background: 'rgba(16, 185, 129, 0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              textDecoration: 'none'
+            }}
+            title="Descargar App para Android (.apk)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
+            <span className="hide-mobile" style={{ color: '#10b981', fontWeight: 600 }}>App</span>
+          </a>
           <button
             onClick={handleExport}
             className="btn btn-outline export-button"
