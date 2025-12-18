@@ -5,7 +5,8 @@ import {
     updateTransaction,
     deleteTransaction,
     getUserBalance,
-    getCategoryStats
+    getCategoryStats,
+    exportTransactions
 } from '../controllers/transactionController.js';
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.delete('/:id', deleteTransaction);
 // Rutas de estadísticas
 router.get('/balance/:userId', getUserBalance);
 router.get('/stats/:userId', getCategoryStats);
+router.get('/export/:userId', exportTransactions);
 
 export default router;

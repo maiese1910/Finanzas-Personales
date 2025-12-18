@@ -228,3 +228,32 @@ export const getCategoryStats = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener estadísticas' });
     }
 };
+
+// Exportar transacciones a CSV
+export const exportTransactions = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const transactions = await prisma.transaction.findMany({
+            where: { userId: parseInt(userId) },
+            include: { category: true },
+            orderBy: { date: 'desc' }
+        });
+
+        // Crear cabecera CSV (BOM \uFEFF para que Excel detecte UTF-8)
+        let csv = '\uFEFFFecha,Descripcion,Tipo,Categoria,Monto\n';
+
+        transactions.forEach(t => {
+            const date = new Date(t.date).toLocaleDateString('es-ES');
+            const desc = t.description.replace(/"/g, '""');
+            const type = t.type === 'income' ? 'Ingreso' : 'Gasto';
+            csv += `${date},"${desc}",${type},"${t.category.name}",${t.amount}\n`;
+        });
+
+        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+        res.setHeader('Content-Disposition', `attachment; filename=finanzly_reporte_${userId}.csv`);
+        res.status(200).send(csv);
+    } catch (error) {
+        console.error('Error al exportar movimientos:', error);
+        res.status(500).json({ error: 'Error al exportar movimientos' });
+    }
+};
