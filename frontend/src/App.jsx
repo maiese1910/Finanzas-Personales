@@ -5,6 +5,7 @@ import TransactionList from './components/TransactionList';
 import ExpenseChart from './components/ExpenseChart';
 import MonthlyBarChart from './components/MonthlyBarChart';
 import FinancialAdvisor from './components/FinancialAdvisor';
+import CategoryList from './components/CategoryList';
 import api from './services/api';
 import './index.css';
 
@@ -147,7 +148,7 @@ function App() {
       <div className="animate-in">
         {view === 'dashboard' && <Dashboard user={user} />}
         {view === 'transactions' && <Transactions user={user} />}
-        {view === 'categories' && <Categories user={user} />}
+        {view === 'categories' && <CategoryList user={user} />}
       </div>
     </div>
   );
@@ -178,7 +179,6 @@ function Dashboard({ user }) {
 
   const formatCurrency = (amount) => {
     const symbol = user.currency || '$';
-    // Para monedas como ARS, COP, MXN usamos el símbolo directamente si no queremos forzar formato ISO completo
     if (['ARS', 'MXN', 'COP'].includes(symbol)) {
       return `${symbol === 'ARS' ? '$' : symbol} ${new Intl.NumberFormat('es-AR').format(amount)}`;
     }
@@ -234,15 +234,6 @@ function Transactions({ user }) {
     <div className="grid">
       <TransactionForm user={user} onTransactionAdded={() => setRefresh(prev => prev + 1)} />
       <TransactionList user={user} refreshTrigger={refresh} />
-    </div>
-  );
-}
-
-function Categories({ user }) {
-  return (
-    <div className="card">
-      <h2>Categorías</h2>
-      <p>Próximamente: gestión de categorías...</p>
     </div>
   );
 }
