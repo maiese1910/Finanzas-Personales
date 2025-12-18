@@ -73,8 +73,8 @@ function Budgets({ user }) {
         <div className="animate-in">
             <div className="flex-between mb-4" style={{ alignItems: 'flex-start' }}>
                 <div>
-                    <h2 className="login-title" style={{ textAlign: 'left', margin: 0, fontSize: '2rem' }}>Mis Presupuestos 🎯</h2>
-                    <p style={{ marginTop: '0.25rem' }}>Gasto máximo mensual para su {currentMonth}/{currentYear}</p>
+                    <h2 className="login-title" style={{ textAlign: 'left', margin: '2rem 0 0.5rem', fontSize: '2rem' }}>Mis Presupuestos 🎯</h2>
+                    <p style={{ marginTop: '0.25rem', marginBottom: '2rem' }}>Gasto máximo mensual para su {currentMonth}/{currentYear}</p>
                 </div>
                 <button className="btn btn-primary" onClick={() => {
                     setSelectedCategory(categories[0]);

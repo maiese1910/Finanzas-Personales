@@ -81,9 +81,10 @@ body {
 
 /* Layout */
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
+  padding: 3rem var(--spacing-lg) var(--spacing-lg);
+  /* Más espacio arriba */
 }
 
 .grid {
@@ -589,8 +590,10 @@ select option {
 /* Responsive */
 @media (max-width: 768px) {
   .container {
-    padding: var(--spacing-sm);
-    padding-bottom: 80px;
+    padding: var(--spacing-md);
+    padding-top: 2rem;
+    /* Más espacio superior en móvil */
+    padding-bottom: 100px;
     /* Space for bottom nav */
   }
 
@@ -606,8 +609,9 @@ select option {
   /* Responsive Header for Mobile */
   .header-main {
     flex-direction: column;
-    padding: 1.5rem !important;
-    gap: 1.25rem !important;
+    padding: 2.5rem 1.5rem !important;
+    /* Más espacio arriba */
+    gap: 1.5rem !important;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
   }
@@ -662,8 +666,21 @@ select option {
   padding: 0.5rem;
   gap: 0.25rem;
   font-size: 0.75rem;
-  border-radius: 10px;
+  border-radius: 12px;
   flex: 1;
+  background: transparent !important;
+  /* Asegurar que no haya fondo por defecto */
+}
+
+.nav-link.active::before {
+  border-radius: 12px !important;
+  opacity: 0.15 !important;
+  /* Fondo mucho más suave, tipo sutil */
+}
+
+.nav-link.active {
+  color: var(--color-primary) !important;
+  transform: translateY(-2px);
 }
 
 .nav-link svg {
