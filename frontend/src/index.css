@@ -365,20 +365,24 @@ select option {
 }
 
 .nav-link.active {
-  color: white;
+  color: #0f172a;
+  /* Texto oscuro para contraste sobre blanco */
   transform: scale(1.08);
   /* Más pronunciado */
+  font-weight: 700;
 }
 
 .nav-link.active::before {
+  background: white;
   opacity: 1;
   transform: scale(1);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
 }
 
 .nav-link.active svg {
   opacity: 1;
-  stroke: white;
+  stroke: #0f172a;
+  /* Icono oscuro */
   animation: pulse-icon 2s infinite ease-in-out;
 }
 
